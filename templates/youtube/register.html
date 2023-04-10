@@ -1,0 +1,47 @@
+{% extends 'youtube/base.html' %}
+
+{% load static %}
+
+{% block css %} <link rel="stylesheet" href="{% static 'css2/style1.css' %}"> {% endblock %}
+
+{% block title %} Register {% endblock %}
+
+{% block content %}
+	<div class="container">
+		<form action="{% url 'register' %}" method="POST">
+            {% csrf_token %}
+			<h1>Create Your Account</h1>
+			<label>Full Name</label>
+			<input type="text" name="username" placeholder="Enter your user name">
+			<br>
+			<label>Email Address</label>
+			<input type="email" name="email" placeholder="Enter your last name address" required>
+			<label>Password</label>
+			<input type="password" name="password1" id="password" placeholder="Enter your password" required  onkeyup="checkPasswordMatch()">
+			<label>Confirm Password</label>
+			<input type="password" id="confirm-password" name="password2" onkeyup="checkPasswordMatch()" placeholder="Confirm your password" required>
+			<span id="password-match-message"></span>
+			<div class="checkbox">
+				<input type="checkbox" name="terms" required>
+				<label>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
+			</div>
+			<button type="submit" id="submit-button" disabled>Create Account</button>
+			<p>Already have an account? <a href="{% url 'login' %}">Sign in here</a></p>
+			<script>
+			function checkPasswordMatch() {
+  				var password = document.getElementById("password");
+  				var confirmPassword = document.getElementById("confirm-password");
+  				var submitButton = document.getElementById("submit-button");
+  				var passwordMatchMessage = document.getElementById("password-match-message");
+
+  				if (password.value == confirmPassword.value) {
+  				  submitButton.disabled = false;
+  				  passwordMatchMessage.innerHTML = "";
+  				} else {
+  				  submitButton.disabled = true;
+  				  passwordMatchMessage.innerHTML = "Паролі не співпадають";
+  				}
+			}
+			</script>
+{% endblock %}
+

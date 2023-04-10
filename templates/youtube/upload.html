@@ -1,0 +1,52 @@
+{% extends 'youtube/base.html' %}
+
+{% load static %}
+
+{% block css %} <link rel="stylesheet" href="{% static 'css2/style2.css' %}"> {% endblock %}
+
+{% block title %} Youtube Studio {% endblock %}
+
+
+{% block content %}
+
+<header>
+    <h1>Youtube Studio</h1>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="#">Videos</a></li>
+            <li><a href="#">Upload</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <section class="video">
+        <h2>Featured Video</h2>
+        <div class="container">
+            <form method="POST", action="{% url 'upload' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Autor:</label>
+                <input type="text" name="autor" readonly value={{request.user.username}}>
+                <br>
+                <label>Title:</label>
+                <input type="text" name="title" class="tit" required>
+                <br>
+                <label>Video_file:</label>
+                <input type="file" name="video_file" accept="video/*" required>
+                <br>
+                <label>Preview:</label>
+                <input type="file" name="preview" accept="image/*" required>
+                <br>
+                <label>Description:</label>
+                <input type="text" name="description" required class="desc">
+                <button type="submit" class="btn btn-succes btn-lg btn" >Upload</button>
+            </form>
+        </div>
+        <p></p>
+    </section>
+</main>
+<footer>
+    <p>&copy; 2023 Video Publishing Website. All rights reserved.</p>
+</footer>
+
+{% endblock %}
