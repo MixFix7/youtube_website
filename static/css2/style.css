@@ -48,6 +48,10 @@ body {
   bottom: 10px;
 }
 
+.donwloadimg {
+  padding-bottom: 13px;
+}
+
 .header__left img {
   width: 100px;
   margin-left: 15px;

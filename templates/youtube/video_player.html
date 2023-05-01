@@ -30,7 +30,7 @@
     
         <div class="header__icons">
           {% if request.user.is_authenticated %}
-          <a class="donwload" href="{% url 'upload' %}"><img src="{% static 'images/DONW.png' %}" alt=""></a>
+          <a class="donwload" href="{% url 'upload' %}"><img class="donwloadimg" src="{% static 'images/DONW.png' %}" alt=""></a>
           {% endif %}
           <i class="material-icons display-this">search</i>
           <i class="material-icons">videocam</i>
