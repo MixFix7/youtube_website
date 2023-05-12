@@ -27,13 +27,13 @@ favicon_view = RedirectView.as_view(url='/static/favicon.png', permanent=True)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name="home"),
-    path('register/', register, name='register'),
-    path('login/', loginPage, name='login'),
-    path('logout', logoutPage, name='logout'),
-    path('upload/', upload_video, name='upload'),
-    path('video/<int:video_id>', video_player, name='video'),
-    path('search', search_video, name='search')
+    path('', Home.as_view(), name="home"),
+    path('register/', Register.as_view(), name='register'),
+    path('login/', LoginPage.as_view(), name='login'),
+    path('logout', Logout.as_view(), name='logout'),
+    path('upload/', UploadVideo.as_view(), name='upload'),
+    path('video/<int:video_id>', VideoPlayer.as_view(), name='video'),
+    path('search', SearchVideo.as_view(), name='search')
 ]
 
 if settings.DEBUG:

@@ -89,7 +89,7 @@
 
     <div class="videos">
       <div class="videos__container">
-        {% for i in all_videos %}
+        {% for i in object_list %}
           <div class="video">
             <div class="video__thumbnail">
               <a href="{% url 'video' video_id=i.id %}">
