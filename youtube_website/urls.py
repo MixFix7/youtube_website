@@ -33,7 +33,8 @@ urlpatterns = [
     path('logout', Logout.as_view(), name='logout'),
     path('upload/', UploadVideo.as_view(), name='upload'),
     path('video/<int:video_id>', VideoPlayer.as_view(), name='video'),
-    path('search', SearchVideo.as_view(), name='search')
+    path('search', SearchVideo.as_view(), name='search'),
+    path('like_video/', like_video, name='like_video'),
 ]
 
 if settings.DEBUG:

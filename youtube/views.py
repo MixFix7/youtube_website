@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404, HttpResponse, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -7,6 +7,9 @@ from .models import Video
 from .models import UserManager
 from django.views import View
 from django.views.generic import TemplateView, ListView
+from django.http import JsonResponse
+
+
 
 class Home(ListView):
     model = Video
@@ -18,6 +21,24 @@ class VideoPlayer(View):
         all_videos = Video.objects.exclude(id=id)
         video = Video.objects.get(id=id)
         return render(request, template_name='youtube/video_player.html', context={'all_videos': all_videos, 'video': video})
+
+def like_video(request):
+    video_id = request.GET.get("id")
+    video = Video.objects.get(pk=video_id)
+    user = request.user
+
+    if user.is_authencated:
+        if user in video.likes.all():
+            video.likes.remove(user)
+        else:
+            video.likes.add(user)
+
+        return JsonResponse({'status': 'ok', 'likes': video.likes.count()})
+    return JsonResponse({'status': 'error'})
+
+
+
+
 
 class Register(TemplateView):
     template_name = 'youtube/register.html'
@@ -37,25 +58,6 @@ class Register(TemplateView):
             else:
                 return HttpResponse("Check your password")
 
-
-
-    def post(self, request):
-        if request.method == 'POST':
-            username = request.POST['username']
-            email = request.POST['email']
-            password1 = request.POST['password1']
-            password2 = request.POST['password2']
-            if password1 == password2:
-                password = password1
-                user = User.objects.create_user(username=username, email=email, password=password)
-                user = authenticate(request, username=username, password=password)
-                login(request, user)
-                return redirect('home')
-            else:
-                return HttpResponse("Check your password")
-
-
-        return render(request, template_name='youtube/register.html')
 
 class LoginPage(View):
     def post(self, request):
