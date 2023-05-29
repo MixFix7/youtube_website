@@ -65,20 +65,9 @@
                 <a href="">{{video.autor}}</a>
                 <span>10M Views • 3 Months Ago</span>
                 
-
-                {% if request.user.is_authenticated %}
-                  <button class="like-btn" data-video-id="{{video.id}}">
-                    {% if request.user in video.likes.all %}
-                      Unlike
-                    {% else %}
-                      Like 
-                    {% endif }
-                  </button>
-                {% endif %}
-                {% endif %}
-                  
-                <p id="video-{{ video.id }}-likes">{{ video.likes.count }}</p>
-                <h6>{{video.description}}</h6>
+                <div class="description">
+                  <h6>{{video.description}}</h6>
+                </div>
                 <div> 
                 </div>
               </div>
