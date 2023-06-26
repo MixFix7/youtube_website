@@ -17,25 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from youtube.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
 
 
-favicon_view = RedirectView.as_view(url='/static/favicon.png', permanent=True)
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', Home.as_view(), name="home"),
-    path('register/', Register.as_view(), name='register'),
-    path('login/', LoginPage.as_view(), name='login'),
-    path('logout', Logout.as_view(), name='logout'),
-    path('upload/', UploadVideo.as_view(), name='upload'),
-    path('video/<int:video_id>', VideoPlayer.as_view(), name='video'),
-    path('search', SearchVideo.as_view(), name='search'),
-    path('like_video/', like_video, name='like_video'),
-]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('', include("youtube.urls")),
+    path('accounts/', include("register.urls")),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,20 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User, AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
-from django.utils.translation import gettext_lazy as _
-
-
-class UserManager(BaseUserManager):
-    def create_user(self, username, email, password=None, **extra_fields):
-        if not email:
-            raise ValueError('The Email field must be set')
-        email = self.normalize_email(email)
-        user = self.model(username=username, email=email, **extra_fields)
-        user.set_password(password)
-        user.save()
-        return user
-
-
-
+from django.contrib.auth.models import User
 
 
 class Video(models.Model):
